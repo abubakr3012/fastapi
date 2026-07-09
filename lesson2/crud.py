@@ -95,3 +95,13 @@ async def get_user_by_username(username:str,db:AsyncSession):
 async def search_user_by_id(user_id:int,db:AsyncSession):
     user=await db.execute(select(User).where(User.id==user_id))
     return user.scalar_one_or_none()
+
+async def update_user_role(user_id:int,new_role:str,db:AsyncSession):
+    user=await search_user_by_id(user_id,db)
+    if user is None:
+        return None
+    user.role=new_role
+    await db.commit()
+    await db.refresh(user)
+
+    return user

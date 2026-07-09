@@ -21,10 +21,14 @@ class UserResponse(BaseModel):
     id:int
     username:str
     email:str
+    role:str
 
 class UserLogin(BaseModel):
     username:str
     password:str
+
+class RoleUpdate(BaseModel):
+    role:str
 
 class Token(BaseModel):
     access_token:str
